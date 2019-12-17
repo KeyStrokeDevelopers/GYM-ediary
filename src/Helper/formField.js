@@ -40,6 +40,10 @@ const renderDatePicker = ({ input, label, meta: { touched, error }, ...custom })
     );
 }
 
+const UploadFile = ({ input: { value: omitValue, ...inputProps }, meta: omitMeta, ...props }) => (
+    <input type='file' {...inputProps} {...props} />
+);
+
 const renderToggleInput = (field) => {
     return (
         <div>
@@ -57,5 +61,6 @@ export {
     renderTextField,
     renderSelectField,
     renderDatePicker,
-    renderToggleInput
+    renderToggleInput,
+    UploadFile
 }

@@ -7,6 +7,14 @@ import { renderTextField, renderSelectField, renderDatePicker } from '../Helper/
 import MenuItem from 'material-ui/MenuItem'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import colors from '../Common/color'
+import { FilePond, registerPlugin } from 'react-filepond';
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import 'react-image-crop/dist/ReactCrop.css';
+
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 const { BLUE_1, BLUE_2, GRAY_2, WHITE_1 } = colors
 
@@ -15,6 +23,18 @@ const Container = styled.div`
     display: flex;
     .MuiFormControl-root {
         width: 100%;
+    }
+    .filepond--hopper {
+        width: 200px;
+        height: 200px;
+    }
+    .filepond--wrapper {
+        display: flex;
+        justify-content: center;
+    }
+    .filepond--root[data-style-panel-layout~='circle'] .filepond--file [data-align*='left'] {
+    left: calc(50% - 1rem);
+    bottom: 4px;
     }
     @media (max-width: 600px) {
         flex-direction: column;
@@ -95,19 +115,50 @@ const RegistrationButton = styled.button`
         background-color: ${BLUE_1};
     }
 `
+const ImageLabel = styled.div`
+	color: ${GRAY_2};
+`
 
 class Registration extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            files: [{
+                source: '',
+                options: {
+                    type: 'local'
+                }
+            }]
+        };
+    }
+
+    handleInit() {
+        console.log('FilePond instance has initialised', this.pond);
+    }
+
     handleRegistration = (registrationData) => {
         console.log('form data-------', registrationData)
     }
 
     render() {
         const { handleSubmit, pristine, submitting } = this.props
+        const { files } = this.state
         return (<Container>
             <MuiThemeProvider>
                 <RegistrationContainer>
                     <Title>New Registration</Title>
-                    <RegistrationForm onSubmit={handleSubmit((formData) => this.handleSignUp(formData))} >
+                    <RegistrationForm onSubmit={handleSubmit((formData) => this.handleRegistration(formData))} >
+                        <ImageLabel>Select Profile Pic</ImageLabel>
+                        <FilePond ref={ref => this.pond = ref}
+                            allowImageCrop={true}
+                            stylePanelLayout='compact circle'
+                            oninit={() => this.handleInit()}
+                            onupdatefiles={fileItems => {
+                                this.setState({
+                                    files: fileItems.map(fileItem => fileItem.file)
+                                });
+                            }}>
+                        </FilePond>
                         <FieldRow>
                             <FieldColumnF>
                                 <Field
@@ -334,7 +385,7 @@ class Registration extends Component {
                     </RegistrationForm>
                 </RegistrationContainer>
             </MuiThemeProvider>
-        </Container>)
+        </Container >)
     }
 }
 

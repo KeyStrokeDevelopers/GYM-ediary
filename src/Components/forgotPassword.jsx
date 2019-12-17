@@ -81,7 +81,6 @@ class ForgotPassword extends Component {
                             component={renderTextField}
                             label="Registered Email Id" />
                     </div>
-
                     <ButtonContainer>
                         <ForgotButton type="submit" disabled={pristine || submitting} className='button'>
                             Forgot Password
