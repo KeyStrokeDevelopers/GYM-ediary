@@ -120,7 +120,7 @@ class SignUp extends Component {
                         <Field
                             name='ownerName'
                             component={renderTextField}
-                            label="Owner\'s Name" />
+                            label="Owner's Name" />
                     </div>
                     <div>
                         <Field

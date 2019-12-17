@@ -7,5 +7,9 @@ export default {
     'TOMATO_1': '#ff6347',
     'TOMATO_2': '#ff7d66',
     'GREEN_1': '#00cc66',
-    'GREEN_2': '#33ff99'
+    'GREEN_2': '#33ff99',
+    'RED_1': '#ff0000',
+    'RED_2': '#e60000',
+    'RED_3': '#ff3333'
+
 }

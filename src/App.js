@@ -6,6 +6,7 @@ import Login from './Components/login'
 import SignUp from './Components/signUp'
 import ForgotPassword from './Components/forgotPassword'
 import Registration from './Components/registration'
+import Package from './Components/package'
 import Enquiry from './Components/enquiry'
 import store from './Store'
 
@@ -20,6 +21,7 @@ class App extends Component {
           <Route path='/forgotpassword' component={ForgotPassword} />
           <Route path='/registration' component={Registration} />
           <Route path='/enquiry' component={Enquiry} />
+          <Route path='/package' component={Package} />
         </Router>
       </Provider>
     )
